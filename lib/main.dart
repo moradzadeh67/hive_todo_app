@@ -1,6 +1,20 @@
-import 'package:flutter/material.dart';
+import 'dart:io';
 
-void main() {
+import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_todo_app/model/todo_model.dart';
+import 'package:path_provider/path_provider.dart';
+
+const todoBox = 'todo-box';
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  Directory directory = await getApplicationDocumentsDirectory();
+  Hive.init(directory.path);
+  Hive.registerAdapter(TodoModelAdapter());
+  Hive.registerAdapter(TodoColorAdapter());
+
+  await Hive.openBox<TodoModel>(todoBox);
+
   runApp(const MyApp());
 }
 
