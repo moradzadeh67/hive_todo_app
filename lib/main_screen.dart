@@ -58,7 +58,9 @@ class _MainScreenState extends State<MainScreen> {
 
 class TodoItem extends StatelessWidget {
   const TodoItem({super.key, required this.todo});
+
   final TodoModel todo;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -86,7 +88,25 @@ class TodoItem extends StatelessWidget {
             color: Colors.red,
             child: Icon(Icons.delete),
           ),
-          child: Container(),
+          child: Container(
+            padding: EdgeInsets.all(12),
+            width: double.infinity,
+            child: Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 4.0),
+                  child: Icon(Icons.edit_note, size: 24),
+                ),
+                Text(
+                  todo.title,
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    color: Color(todo.color.code),
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );
