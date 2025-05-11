@@ -10,9 +10,7 @@ class TodoFromScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     _selectedColor = todoModel.color;
     final titleController = TextEditingController(text: todoModel.title);
-    final descriptionController = TextEditingController(
-      text: todoModel.description,
-    );
+    final descController = TextEditingController(text: todoModel.description);
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -26,7 +24,22 @@ class TodoFromScreen extends StatelessWidget {
         ),
         body: Padding(
           padding: EdgeInsets.symmetric(horizontal: 12),
-          child: Column(children: [_TodoColorSllector()]),
+          child: Column(
+            children: [
+              _TodoColorSllector(),
+              TextField(
+                controller: titleController,
+                textInputAction: TextInputAction.next,
+                decoration: InputDecoration(hintText: "Title"),
+              ),
+              TextField(
+                controller: descController,
+                textInputAction: TextInputAction.newline,
+                maxLines: 8,
+                decoration: InputDecoration(hintText: "Description"),
+              ),
+            ],
+          ),
         ),
       ),
     );
