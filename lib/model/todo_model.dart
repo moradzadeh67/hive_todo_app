@@ -14,7 +14,6 @@ class TodoModel extends HiveObject {
   TodoColor color;
 
   TodoModel({
-    required this.id,
     required this.title,
     required this.description,
     required this.color,

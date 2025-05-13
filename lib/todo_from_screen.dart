@@ -1,4 +1,7 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:hive_todo_app/main_screen.dart';
 import 'package:hive_todo_app/model/todo_model.dart';
 
 late TodoColor _selectedColor;
@@ -32,14 +35,42 @@ class TodoFromScreen extends StatelessWidget {
                 textInputAction: TextInputAction.next,
                 decoration: InputDecoration(hintText: "Title"),
               ),
+              SizedBox(height: 12),
               TextField(
                 controller: descController,
                 textInputAction: TextInputAction.newline,
                 maxLines: 8,
                 decoration: InputDecoration(hintText: "Description"),
               ),
+              SizedBox(height: 12),
             ],
           ),
+        ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            if (titleController.text.isNotEmpty) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                SnackBar(
+                  content: Text("Please complete all the fields"),
+                  backgroundColor: Colors.black,
+                ),
+              );
+            } else {
+              todoModel.title = titleController.text.trim();
+              todoModel.description = descController.text.trim();
+              todoModel.color = _selectedColor;
+              if (todoModel.isInBox) {
+                todoModel.save();
+              } else {
+                box.add(todoModel);
+              }
+              Navigator.pop(context);
+            }
+          },
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(50),
+          ),
+          child: Icon(Icons.save),
         ),
       ),
     );
@@ -47,7 +78,7 @@ class TodoFromScreen extends StatelessWidget {
 }
 
 class _TodoColorSllector extends StatefulWidget {
-  _TodoColorSllector({super.key});
+  const _TodoColorSllector({super.key});
   @override
   State<_TodoColorSllector> createState() => _TodoColorSllectorState();
 }
@@ -108,7 +139,7 @@ class ColorItem extends StatelessWidget {
           shape: BoxShape.circle,
           color: Color(colorCode),
         ),
-        child: isSelected ? Icon(Icons.check) : null,
+        child: isSelected ? Icon(Icons.check, color: Colors.white) : null,
       ),
     );
   }
