@@ -140,6 +140,7 @@ class TodoItem extends StatelessWidget {
                     Text(
                       todo.title,
                       style: TextStyle(
+                        fontSize: 17,
                         fontWeight: FontWeight.bold,
                         color: Color(todo.color.code),
                       ),
@@ -155,6 +156,7 @@ class TodoItem extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                   ),
                 ),
+                SizedBox(height: 8),
                 const Divider(),
               ],
             ),

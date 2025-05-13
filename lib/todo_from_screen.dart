@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:hive_todo_app/main_screen.dart';
 import 'package:hive_todo_app/model/todo_model.dart';
@@ -48,7 +46,7 @@ class TodoFromScreen extends StatelessWidget {
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
-            if (titleController.text.isNotEmpty) {
+            if (titleController.text.isEmpty) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Text("Please complete all the fields"),
@@ -128,7 +126,7 @@ class ColorItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: onTap,
       child: Container(
         width: 30,
         height: 30,
